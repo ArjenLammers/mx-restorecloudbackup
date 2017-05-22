@@ -1,0 +1,34 @@
+<restorebackup>
+
+    <settings>
+        <mendix>
+            <username>xxxx</username> <!-- Your username at the Mendix portal -->
+            <apikey>xxxxxx</apikey> <!-- Request your API key at the Mendix portal see: https://docs.mendix.com/apidocs-mxsdk/apidocs/authentication -->
+        </mendix>
+        <postgresql>
+            <path>C:\Program Files\PostgreSQL\9.5</path>
+            <username>postgres</username>
+            <password>xxxxx</password> <!-- if password is supplied, it will be set as PGPASSWORD for authentication, for alternatives see https://www.postgresql.org/docs/current/static/client-authentication.html -->
+            <grouprole></grouprole> <!-- Database role which will be assigned to the database when imported -->
+        </postgresql>
+        <backuplocation>C:\script\backups</backuplocation> <!-- Working location for downloading backups and preserving old backups -->
+    </settings>
+
+    
+    <databases>
+        <!-- 
+        -->
+
+        <database>
+            <appid>appid</appid>
+            <environment>Production</environment> <!-- Possible values are: Test, Acceptance, Production -->
+            <target>appidnl</target> <!-- The name of the database within the target PostgreSQL, keep this only alphanumeric characters -->
+            <preservelocalbackup>false</preservelocalbackup>
+            <postscripts>
+                <script>C:\script\post\post.sql</script>
+            </postscripts>
+        </database>
+        
+    </databases>
+
+</restorebackup>
