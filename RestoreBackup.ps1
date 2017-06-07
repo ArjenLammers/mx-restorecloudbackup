@@ -76,16 +76,14 @@ Foreach ($database in $xdoc.restorebackup.databases.database) {
     $res = &"$postgresLocation\bin\psql.exe" -d $databaseName --host=127.0.0.1 --username=$username -c `"$sql`"
 
     Write-Output "$display - Dropping database"
-    $res = &"$postgresLocation\bin\psql.exe" --host=127.0.0.1 --username=$username -c `"DROP DATABASE $databaseName`"
+    $res = &"$postgresLocation\bin\psql.exe" -d postgres --host=127.0.0.1 --username=$username -c `"DROP DATABASE $databaseName`"
 
     Write-Output "$display - Creating database"
     $sql = "CREATE DATABASE $databaseName WITH ENCODING='UTF8' CONNECTION LIMIT=-1;"
-    $res = &"$postgresLocation\bin\psql.exe" --host=127.0.0.1 --username=$username -c `"$sql`"
+    $res = &"$postgresLocation\bin\psql.exe" -d postgres --host=127.0.0.1 --username=$username -c `"$sql`"
 
     Write-Output "$display - Restoring new database ($backup)"
     $res = &"$postgresLocation\bin\pg_restore.exe" -d $databaseName --no-tablespaces --no-owner --no-privileges --host=127.0.0.1 --jobs=3 --username=$username $backup 2>&1
-
-    echo $res
 
     if ($groupRole -ne $null -And $groupRole -ne "") {
         Write-Output "$display - Setting permissions"
